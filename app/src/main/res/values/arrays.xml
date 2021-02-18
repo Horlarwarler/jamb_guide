@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="jambSyllabus">
+        <item>English</item>
+        <item>Mathemantics</item>
+        <item>chemistry</item>
+        <item>physics</item>
+    </string-array>
+</resources>

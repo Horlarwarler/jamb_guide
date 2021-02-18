@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.offline.jambguide.fragment.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_admissionStatus"
+            app:destination="@id/admissionStatus"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_in_left"/>
+        <action
+            android:id="@+id/action_dashboardFragment_to_jambNews"
+            app:destination="@id/jambNews"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_in_left" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_practiseQuestion"
+            app:destination="@id/practiseQuestion"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_dashboardFragment_to_cutOffMark"
+            app:destination="@id/cutOffMark"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_in_left"/>
+        <action
+            android:id="@+id/action_dashboardFragment_to_jambBrochure"
+            app:destination="@id/jambBrochure"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_in_left" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_jambSyllabus"
+            app:destination="@id/jambSyllabus"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_in_left"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUs"
+        android:name="com.offline.jambguide.fragment.aboutUs"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about_us"/>
+    <fragment
+        android:id="@+id/jambNews"
+        android:name="com.offline.jambguide.fragment.jambNews"
+        android:label="fragment_audio"
+        tools:layout="@layout/fragment_jamb_news" />
+
+
+    <fragment
+        android:id="@+id/jambBrochure"
+        android:name="com.offline.jambguide.fragment.jambBrochure"
+        android:label="Read Quran"
+        tools:layout="@layout/fragment_jamb_brochure"/>
+    <fragment
+        android:id="@+id/jambSyllabus"
+        android:name="com.offline.jambguide.fragment.SyllabusCategory"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_jamb_syllabus" />
+
+    <fragment
+        android:id="@+id/practiseQuestion"
+        android:name="com.offline.jambguide.fragment.practiseQuestion"
+        android:label="Practise Question"
+        tools:layout="@layout/fragment_practise_question"/>
+
+    <fragment
+        android:id="@+id/cutOffMark"
+        android:name="com.offline.jambguide.fragment.cutOffMark"
+        android:label="fragment_ayah_word"
+        tools:layout="@layout/fragment_cut_off_mark"/>
+    <fragment
+        android:id="@+id/admissionStatus"
+        android:name="com.offline.jambguide.fragment.admissionStatus"
+        android:label="fragment_names"
+        tools:layout="@layout/fragment_admission_status" />
+
+
+
+
+
+</navigation>

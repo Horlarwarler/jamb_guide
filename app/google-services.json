@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "904991384257",
+    "firebase_url": "https://offline-quiz-5175d.firebaseio.com",
+    "project_id": "offline-quiz-5175d",
+    "storage_bucket": "offline-quiz-5175d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904991384257:android:74fd4ffbfbe510614c6a40",
+        "android_client_info": {
+          "package_name": "com.offline.jambguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904991384257-8bf0cmgq8vth8r1i2g5k4fk33kc17qad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdNAJLkmLh8SP5ET67ovvYSvkgTQixnlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904991384257-8bf0cmgq8vth8r1i2g5k4fk33kc17qad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
