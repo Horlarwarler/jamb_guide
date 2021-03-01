@@ -291,18 +291,18 @@
                     android:id="@+id/cardView1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true"
                     android:layout_marginTop="10dp"
-                    app:cardBackgroundColor="@color/green_text">
+                    app:cardBackgroundColor="@color/green_text"
+                    app:cardUseCompatPadding="true">
 
                     <TextView
                         android:id="@+id/tvNote"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="serif"
                         android:padding="10dp"
                         android:text="Note"
-                        android:fontFamily="serif"
-                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/txt_color"
                         android:textSize="17dp" />
                 </androidx.cardview.widget.CardView>

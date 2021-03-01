@@ -8,38 +8,38 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       >
-        <include layout="@layout/actionbar_layout"/>
+        android:layout_height="match_parent">
+
+        <include layout="@layout/actionbar_layout" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/category_recycleview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_above="@+id/banner_AdView"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/banner_AdView"
+            android:layout_below="@+id/relativeLayout" />
 
-    <TextView
-        android:id="@+id/txtblanklist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="Category not available"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/txtblanklist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Category not available"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
-    <com.google.android.gms.ads.AdView
+        <com.google.android.gms.ads.AdView
 
-        android:id="@+id/banner_AdView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        app:adUnitId="@string/admob_banner_id" />
+            android:id="@+id/banner_AdView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="@string/admob_banner_id" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

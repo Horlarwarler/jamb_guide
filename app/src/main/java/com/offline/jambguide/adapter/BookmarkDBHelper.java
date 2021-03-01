@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-
 import com.offline.jambguide.model.Bookmark;
 
 import java.io.File;
@@ -20,11 +19,6 @@ import java.util.ArrayList;
 
 public class BookmarkDBHelper extends SQLiteOpenHelper {
 
-    //database version
-    private static int db_version = 2;
-
-    //database name
-    private static String db_name = "que_bookmark.db";
     //table name
     public static String TABLE_NAME = "tbl_bookmark";
     //colimn name
@@ -33,12 +27,14 @@ public class BookmarkDBHelper extends SQLiteOpenHelper {
     public static String ANSWER = "answer";
     public static String QUE_ID = "que_id";
     public static String SOLUTION = "que_solution";
+    //database version
+    private static int db_version = 2;
+    //database name
+    private static String db_name = "que_bookmark.db";
+    private final Context context;
+    ArrayList<Bookmark> bookArrayList = new ArrayList<>();
     private String db_path;
     private SQLiteDatabase db;
-    private final Context context;
-
-
-    ArrayList<Bookmark> bookArrayList = new ArrayList<>();
 
 
     public BookmarkDBHelper(Context context) {
@@ -46,11 +42,11 @@ public class BookmarkDBHelper extends SQLiteOpenHelper {
         this.context = context;
 
         File database = context.getDatabasePath(db_name);
-        System.out.println("db_path--" +database );
+        System.out.println("db_path--" + database);
         if (!database.exists()) {
             // Database does not exist so copy it from assets here
             db_path = context.getDatabasePath(db_name).toString().replace(db_name, "");
-            System.out.println("db_path--" +db_path );
+            System.out.println("db_path--" + db_path);
         } else {
             db_path = context.getDatabasePath(db_name).toString();
 
@@ -74,7 +70,7 @@ public class BookmarkDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion || newVersion==oldVersion) {
+        if (newVersion > oldVersion || newVersion == oldVersion) {
             Log.v("Database Upgrade", "Database version higher than old.");
             db_delete();
         }
@@ -164,7 +160,7 @@ public class BookmarkDBHelper extends SQLiteOpenHelper {
 
         // looping through all rows and adding to list
         c.moveToFirst();
-        while (c.moveToNext()){
+        while (c.moveToNext()) {
             Bookmark book = new Bookmark();
             book.setId(c.getInt(c.getColumnIndex(ID)));
             book.setQuestion(c.getString(c.getColumnIndex(QUESTION)));

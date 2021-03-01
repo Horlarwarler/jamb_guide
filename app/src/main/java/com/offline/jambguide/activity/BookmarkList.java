@@ -4,17 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.offline.jambguide.Constant;
 import com.offline.jambguide.R;
@@ -45,7 +46,7 @@ public class BookmarkList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         bookmarks = QuizActivity.bookmarkDBHelper.getAllBookmarkedList();
-      System.out.println("check solutions ----/--"+bookmarks.toString());
+        System.out.println("check solutions ----/--" + bookmarks.toString());
         if (bookmarks.size() == 0) {
             tvNoBookmarked.setVisibility(View.VISIBLE);
         }
@@ -74,6 +75,28 @@ public class BookmarkList extends AppCompatActivity {
         });
 
 
+    }
+
+    public void SolutionDialog(String question, String solution) {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(BookmarkList.this);
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View dialogView = inflater.inflate(R.layout.note_dialog_layout, null);
+        dialog.setView(dialogView);
+        TextView tvQuestion = (TextView) dialogView.findViewById(R.id.question);
+        TextView tvSolution = (TextView) dialogView.findViewById(R.id.solution);
+        System.out.println("check solutions ----/--" + question + "-----" + solution);
+        tvQuestion.setText(question);
+        tvSolution.setText(solution);
+        AlertDialog alertDialog = dialog.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.setCancelable(true);
+        alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ItemRowHolder> {
@@ -111,7 +134,7 @@ public class BookmarkList extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                   SolutionDialog(bookmark.getQuestion(),bookmark.getSolution());
+                    SolutionDialog(bookmark.getQuestion(), bookmark.getSolution());
                 }
             });
         }
@@ -137,27 +160,5 @@ public class BookmarkList extends AppCompatActivity {
 
             }
         }
-    }
-
-    public void SolutionDialog(String question, String solution) {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(BookmarkList.this);
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View dialogView = inflater.inflate(R.layout.note_dialog_layout, null);
-        dialog.setView(dialogView);
-        TextView tvQuestion = (TextView) dialogView.findViewById(R.id.question);
-        TextView tvSolution = (TextView) dialogView.findViewById(R.id.solution);
-        System.out.println("check solutions ----/--" + question + "-----" + solution);
-        tvQuestion.setText(question);
-        tvSolution.setText(solution);
-        AlertDialog alertDialog = dialog.create();
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        alertDialog.setCancelable(true);
-        alertDialog.show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }

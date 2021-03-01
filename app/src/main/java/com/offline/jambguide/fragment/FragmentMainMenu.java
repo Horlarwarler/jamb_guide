@@ -2,20 +2,20 @@ package com.offline.jambguide.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
+import com.offline.jambguide.Constant;
+import com.offline.jambguide.R;
 import com.offline.jambguide.activity.BookmarkList;
 import com.offline.jambguide.activity.InstructionActivity;
-import com.offline.jambguide.R;
 import com.offline.jambguide.activity.SettingActivity;
 import com.offline.jambguide.helper.SettingsPreferences;
-import com.offline.jambguide.Constant;
 
 /**
  * Created by Hetal on 09-Mar-18.
@@ -25,25 +25,6 @@ public class FragmentMainMenu extends Fragment implements View.OnClickListener /
     private View mSignIn;
     private View mSignOut;
     private ImageView imgBookmark;
-
-
-    public interface Listener {
-        // called when the user presses the `Easy` or `Okay` button; will pass in which via `hardMode`
-        void onStartGameRequested();
-
-        // called when the user presses the `Show Achievements` button
-        void onShowAchievementsRequested();
-
-        // called when the user presses the `Show Leaderboards` button
-        void onShowLeaderboardsRequested();
-
-        // called when the user presses the `Sign In` button
-        void onSignInButtonClicked();
-
-        // called when the user presses the `Sign Out` button
-        void onSignOutButtonClicked();
-    }
-
     private Listener mListener = null;
     private boolean mShowSignInButton = true;
 
@@ -84,11 +65,9 @@ public class FragmentMainMenu extends Fragment implements View.OnClickListener /
         return view;
     }
 
-
     public void setListener(Listener listener) {
         mListener = listener;
     }
-
 
     private void updateUI() {
 
@@ -100,13 +79,27 @@ public class FragmentMainMenu extends Fragment implements View.OnClickListener /
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.english:
+
+
                 mListener.onStartGameRequested();
                 break;
             case R.id.sign_in_button:
-                mListener.onSignInButtonClicked();
-                break;
             case R.id.sign_out_button:
-                mListener.onSignOutButtonClicked();
+            case R.id.leaderbord1:
+//                if (SettingsPreferences.getSoundEnableDisable(getContext())) {
+//                    Constant.backSoundonclick(getContext());
+//                }
+//                if (SettingsPreferences.getVibration(getContext())) {
+//                    Constant.vibrate(getContext(), Constant.VIBRATION_DURATION);
+//                }
+//                if (mShowSignInButton == false) {
+//                    mListener.onShowLeaderboardsRequested();
+//                } else {
+//                    mListener.onSignInButtonClicked();
+//                }
+            case R.id.achivments1:
+                Toast.makeText(getActivity(), " This Feature is Coming Soon", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.instruction:
                 SettingsPreferences.setLan(getContext(), true);
@@ -128,41 +121,44 @@ public class FragmentMainMenu extends Fragment implements View.OnClickListener /
                 if (SettingsPreferences.getVibration(getContext())) {
                     Constant.vibrate(getContext(), Constant.VIBRATION_DURATION);
                 }
-                Intent playQuiz1 = new Intent(getActivity(), SettingActivity.class);
-                startActivity(playQuiz1);
+                Intent settingsActivity = new Intent(getActivity(), SettingActivity.class);
+                startActivity(settingsActivity);
                 break;
-            case R.id.leaderbord1:
-                if (SettingsPreferences.getSoundEnableDisable(getContext())) {
-                    Constant.backSoundonclick(getContext());
-                }
-                if (SettingsPreferences.getVibration(getContext())) {
-                    Constant.vibrate(getContext(), Constant.VIBRATION_DURATION);
-                }
-                if (mShowSignInButton == false) {
-                    mListener.onShowLeaderboardsRequested();
-                } else {
-                    mListener.onSignInButtonClicked();
-                }
-                break;
-            case R.id.achivments1:
-                if (SettingsPreferences.getSoundEnableDisable(getContext())) {
-                    Constant.backSoundonclick(getContext());
-                }
-                if (SettingsPreferences.getVibration(getContext())) {
-                    Constant.vibrate(getContext(), Constant.VIBRATION_DURATION);
-                }
-                if (mShowSignInButton == false) {
-                    mListener.onShowAchievementsRequested();
-                } else {
-
-                    mListener.onSignInButtonClicked();
-                }
-                break;
+//                if (SettingsPreferences.getSoundEnableDisable(getContext())) {
+//                    Constant.backSoundonclick(getContext());
+//                }
+//                if (SettingsPreferences.getVibration(getContext())) {
+//                    Constant.vibrate(getContext(), Constant.VIBRATION_DURATION);
+//                }
+//                if (mShowSignInButton == false) {
+//                    mListener.onShowAchievementsRequested();
+//                } else {
+//
+//                    mListener.onSignInButtonClicked();
+//                }
+//                break;
         }
     }
 
     public void setShowSignInButton(boolean showSignInButton) {
         mShowSignInButton = showSignInButton;
         updateUI();
+    }
+
+    public interface Listener {
+        // called when the user presses the `Easy` or `Okay` button; will pass in which via `hardMode`
+        void onStartGameRequested();
+
+        // called when the user presses the `Show Achievements` button
+        void onShowAchievementsRequested();
+
+        // called when the user presses the `Show Leaderboards` button
+        void onShowLeaderboardsRequested();
+
+        // called when the user presses the `Sign In` button
+        void onSignInButtonClicked();
+
+        // called when the user presses the `Sign Out` button
+        void onSignOutButtonClicked();
     }
 }

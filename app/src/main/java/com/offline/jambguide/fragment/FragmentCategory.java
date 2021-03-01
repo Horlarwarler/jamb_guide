@@ -3,12 +3,6 @@ package com.offline.jambguide.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +10,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.offline.jambguide.AppController;
 import com.offline.jambguide.Constant;
 import com.offline.jambguide.R;
@@ -26,23 +28,19 @@ import com.offline.jambguide.helper.CircleImageView;
 import com.offline.jambguide.helper.SettingsPreferences;
 import com.offline.jambguide.model.Category;
 import com.offline.jambguide.model.SubCategory;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
 public class FragmentCategory extends Fragment {
-    private RecyclerView recyclerView;
-    private View view;
-
+    public static ArrayList<Category> categoryList;
+    public static ArrayList<SubCategory> subCatList;
     ArrayList<Category> mListItem;
     AdView mAdView;
     TextView empty_msg, tvTitle;
     CoordinatorLayout layout;
     ImageView back, setting;
-    public static ArrayList<Category> categoryList;
-    public static ArrayList<SubCategory> subCatList;
-
+    private RecyclerView recyclerView;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,9 +104,10 @@ public class FragmentCategory extends Fragment {
     }
 
     public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemRowHolder> {
-        private ArrayList<Category> dataList;
-        private Context mContext;
+        private final ArrayList<Category> dataList;
+        private final Context mContext;
         public FragmentLock fragmentlock = new FragmentLock();
+
         public CategoryAdapter(Context context, ArrayList<Category> dataList) {
             this.dataList = dataList;
             this.mContext = context;

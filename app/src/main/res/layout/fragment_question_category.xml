@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Jamb Syllabus"
+            android:text="@string/practise_question"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/backArrow"
             app:layout_constraintEnd_toEndOf="parent"
@@ -378,6 +378,5 @@
 
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

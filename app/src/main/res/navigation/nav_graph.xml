@@ -14,39 +14,39 @@
             android:id="@+id/action_dashboardFragment_to_admissionStatus"
             app:destination="@id/admissionStatus"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_in_left"/>
+            app:exitAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_dashboardFragment_to_jambNews"
             app:destination="@id/jambNews"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_in_left" />
         <action
-            android:id="@+id/action_dashboardFragment_to_practiseQuestion"
-            app:destination="@id/practiseQuestion"
+            android:id="@+id/action_dashboardFragment_to_Question"
+            app:destination="@id/questionCategory"
             app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fade_out"/>
+            app:exitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_dashboardFragment_to_cutOffMark"
             app:destination="@id/cutOffMark"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_in_left"/>
+            app:exitAnim="@anim/slide_in_left" />
         <action
-            android:id="@+id/action_dashboardFragment_to_jambBrochure"
-            app:destination="@id/jambBrochure"
+            android:id="@+id/action_dashboardFragment_to_onlineCbt"
+            app:destination="@id/onlineCbt"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_dashboardFragment_to_jambSyllabus"
             app:destination="@id/jambSyllabus"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_in_left"/>
+            app:exitAnim="@anim/slide_in_left" />
 
     </fragment>
     <fragment
         android:id="@+id/aboutUs"
         android:name="com.offline.jambguide.fragment.aboutUs"
         android:label="fragment_about"
-        tools:layout="@layout/fragment_about_us"/>
+        tools:layout="@layout/fragment_about_us" />
     <fragment
         android:id="@+id/jambNews"
         android:name="com.offline.jambguide.fragment.jambNews"
@@ -55,35 +55,40 @@
 
 
     <fragment
-        android:id="@+id/jambBrochure"
-        android:name="com.offline.jambguide.fragment.jambBrochure"
-        android:label="Read Quran"
-        tools:layout="@layout/fragment_jamb_brochure"/>
+        android:id="@+id/onlineCbt"
+        android:name="com.offline.jambguide.fragment.OnlineCbtFragment"
+        android:label="Online Cbt" />
     <fragment
         android:id="@+id/jambSyllabus"
         android:name="com.offline.jambguide.fragment.SyllabusCategory"
         android:label="fragment_about_us"
-        tools:layout="@layout/fragment_jamb_syllabus" />
+        tools:layout="@layout/fragment_syllabus_category" />
+
 
     <fragment
-        android:id="@+id/practiseQuestion"
-        android:name="com.offline.jambguide.fragment.practiseQuestion"
+        android:id="@+id/questionCategory"
+        android:name="com.offline.jambguide.fragment.PastQuestionCategory"
         android:label="Practise Question"
-        tools:layout="@layout/fragment_practise_question"/>
+        tools:layout="@layout/fragment_practise_question" />
 
     <fragment
         android:id="@+id/cutOffMark"
         android:name="com.offline.jambguide.fragment.cutOffMark"
         android:label="fragment_ayah_word"
-        tools:layout="@layout/fragment_cut_off_mark"/>
+        tools:layout="@layout/fragment_cut_off_mark" />
     <fragment
         android:id="@+id/admissionStatus"
         android:name="com.offline.jambguide.fragment.admissionStatus"
         android:label="fragment_names"
         tools:layout="@layout/fragment_admission_status" />
-
-
-
+    <fragment
+        android:id="@+id/jambSyllabus2"
+        android:name="com.offline.jambguide.fragment.jambSyllabus"
+        android:label="jambSyllabus" />
+    <fragment
+        android:id="@+id/navigate_past_question"
+        android:name="com.offline.jambguide.fragment.pastQuestion"
+        android:label="Past Question" />
 
 
 </navigation>

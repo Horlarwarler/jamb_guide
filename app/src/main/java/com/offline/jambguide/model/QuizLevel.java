@@ -1,16 +1,16 @@
 package com.offline.jambguide.model;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.offline.jambguide.Constant;
 import com.offline.jambguide.adapter.DBHelper;
 
+import java.util.Collections;
+import java.util.List;
+
 public class QuizLevel {
+    DBHelper questionsDao;
     private int levelNo;
     private int noOfQuestion;
     private List<Quizplay> question;
-    DBHelper questionsDao;
 
     public QuizLevel(int levelNo, int noOfQuestion, DBHelper questionsDao) {
         super();
@@ -33,7 +33,7 @@ public class QuizLevel {
 
     public void setQuestionGuj() {
 //        question = questionsDao.getQuestionGuj(Constant.categoryId,Constant.subCategoryId,getNoOfQuestion(), getLevelNo());
-        question = questionsDao.getQuestionGujSingleCat(Constant.categoryId,getNoOfQuestion(), getLevelNo());
+        question = questionsDao.getQuestionGujSingleCat(Constant.categoryId, getNoOfQuestion());
         Collections.shuffle(question);
     }
 }

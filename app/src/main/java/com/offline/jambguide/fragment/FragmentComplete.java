@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,30 +13,56 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.offline.jambguide.AppController;
+import com.offline.jambguide.Constant;
 import com.offline.jambguide.R;
 import com.offline.jambguide.activity.QuizActivity;
-import com.offline.jambguide.activity.SettingActivity;
 import com.offline.jambguide.activity.ReviewActivity;
-import com.offline.jambguide.AppController;
+import com.offline.jambguide.activity.SettingActivity;
 import com.offline.jambguide.helper.CircularProgressIndicator2;
 import com.offline.jambguide.helper.SettingsPreferences;
-import com.offline.jambguide.Constant;
 
 public class FragmentComplete extends Fragment implements android.view.View.OnClickListener {
-    private Button btnPlayAgain, btnShare, btnRateus, btnQuite, btnReview;
-    private TextView txt_result_title, txt_score, txtLevelTotalScore, txtLevel, txt_right, txt_wrong, point, coin_count, tvLevel;
-    ImageView setting, back;
-    private CircularProgressIndicator2 result_prog;
-    private SharedPreferences settings;
     public static Context mcontex;
+    public FragmentPlay fragmentPlay;
+    public FragmentLock fragmentLevel;
+    ImageView setting, back;
     int levelNo = 1;
     int lastLevelScore = 0;
     int coin = 0;
     int totalScore = 0;
+    private Button btnPlayAgain, btnShare, btnRateus, btnQuite, btnReview;
+    private TextView txt_result_title, txt_score, txtLevelTotalScore, txtLevel, txt_right, txt_wrong, point, coin_count, tvLevel;
+    private CircularProgressIndicator2 result_prog;
+    private SharedPreferences settings;
     private View v;
-    public FragmentPlay fragmentPlay;
-    public FragmentLock fragmentLevel;
 
+
+    public static float getPercentageCorrect(int questions, int correct) {
+        float proportionCorrect = ((float) correct) / ((float) questions);
+        return proportionCorrect * 100;
+    }
+
+    public int getpassmark() {
+        int passmark;
+        int position = getArguments().getInt("totalQues");
+        switch (position) {
+            case 1:
+                passmark = 25;
+                break;
+            case 2:
+                passmark = 35;
+                break;
+            default:
+                passmark = 15;
+
+        }
+        return passmark;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,9 +107,12 @@ public class FragmentComplete extends Fragment implements android.view.View.OnCl
         btnRateus.setOnClickListener(this);
         btnQuite.setOnClickListener(this);
         btnReview.setOnClickListener(this);
+
+
         if (FragmentPlay.reviews.size() == 0) {
             btnReview.setVisibility(View.GONE);
         }
+
         btnShare = (Button) v.findViewById(R.id.btn_share);
         btnShare.setOnClickListener(this);
         boolean islevelcomplted = settings.getBoolean(
@@ -137,9 +163,12 @@ public class FragmentComplete extends Fragment implements android.view.View.OnCl
                 btnPlayAgain.setText(getResources().getString(R.string.next_play));
                 Constant.RequestlevelNo = Constant.RequestlevelNo + 1;
                 tvLevel.setText(getResources().getString(R.string.next_play));
+                int position = getArguments().getInt("totalQues");
+                position++;
+                Constant.NewPosition = position;
             }
         } else {
-            txt_result_title.setText(getActivity().getString(R.string.not_completed));
+            txt_result_title.setText(getActivity().getString(R.string.not_completed) + getpassmark());
             btnPlayAgain.setText(getResources().getString(R.string.play_next));
             tvLevel.setText(getResources().getString(R.string.play_next));
         }
@@ -150,17 +179,28 @@ public class FragmentComplete extends Fragment implements android.view.View.OnCl
         return v;
     }
 
-    public static float getPercentageCorrect(int questions, int correct) {
-        float proportionCorrect = ((float) correct) / ((float) questions);
-        return proportionCorrect * 100;
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_playagain:
                 FragmentPlay.displayInterstitial();
+
+
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                Bundle args = new Bundle();
+                int position = getArguments().getInt("totalQues");
+                int value;
+                if (Constant.NewPosition == position) {
+                    value = position;
+                } else {
+                    value = Constant.NewPosition;
+
+                }
+
+                args.putInt("totalQues", value);
+
+                fragmentPlay.setArguments(args);
                 getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 ft.replace(R.id.fragment_container, fragmentPlay, "fragment");
                 ft.addToBackStack("tag");

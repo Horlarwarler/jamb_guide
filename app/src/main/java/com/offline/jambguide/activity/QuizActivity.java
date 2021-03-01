@@ -6,29 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.offline.jambguide.R;
-import com.offline.jambguide.adapter.BookmarkDBHelper;
-import com.offline.jambguide.adapter.DBHelper;
-import com.offline.jambguide.fragment.FragmentCategory;
-import com.offline.jambguide.fragment.FragmentComplete;
-import com.offline.jambguide.fragment.FragmentLock;
-import com.offline.jambguide.fragment.FragmentMainMenu;
-import com.offline.jambguide.fragment.FragmentPlay;
-import com.offline.jambguide.AppController;
-import com.offline.jambguide.fragment.FragmentSubcategory;
-import com.offline.jambguide.helper.SettingsPreferences;
-import com.offline.jambguide.Constant;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -45,6 +34,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.offline.jambguide.AppController;
+import com.offline.jambguide.Constant;
+import com.offline.jambguide.R;
+import com.offline.jambguide.adapter.BookmarkDBHelper;
+import com.offline.jambguide.adapter.DBHelper;
+import com.offline.jambguide.fragment.FragmentCategory;
+import com.offline.jambguide.fragment.FragmentComplete;
+import com.offline.jambguide.fragment.FragmentLock;
+import com.offline.jambguide.fragment.FragmentMainMenu;
+import com.offline.jambguide.fragment.FragmentPlay;
+import com.offline.jambguide.fragment.FragmentSubcategory;
+import com.offline.jambguide.helper.SettingsPreferences;
 
 import java.io.IOException;
 
@@ -52,6 +53,18 @@ import static com.offline.jambguide.fragment.FragmentPlay.loadRewardedVideoAd;
 
 public class QuizActivity extends AppCompatActivity implements FragmentPlay.Callback, FragmentMainMenu.Listener {
 
+    private static final int RC_UNUSED = 5001;
+    private static final int RC_SIGN_IN = 9001;
+    public static DBHelper DBHelper;
+    public static BookmarkDBHelper bookmarkDBHelper;
+    public static Context context;
+    public static RewardedVideoAd rewardedVideoAd;
+    private final Handler mHandler = new Handler();
+    private final AccomplishmentsOutbox mOutbox = new AccomplishmentsOutbox();
+    private final Runnable mUpdateUITimerTask = new Runnable() {
+        public void run() {
+        }
+    };
     SharedPreferences settings;
     FragmentPlay fragmentPlay;
     FragmentLock fragmentlock;
@@ -59,19 +72,17 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
     FragmentComplete fragmentcomplete;
     FragmentMainMenu fragmentMainMenu;
     FragmentCategory fragmentCategory;
-    public static DBHelper DBHelper;
-    public static BookmarkDBHelper bookmarkDBHelper;
-    public static Context context;
-    private final Handler mHandler = new Handler();
+    Runnable stopLoadDataDialogSomeTime = new Runnable() {
+        public void run() {
+
+        }
+    };
+    boolean addList = false;
     private GoogleSignInClient mGoogleSignInClient;
     private PlayersClient mPlayersClient;
-    private static final int RC_UNUSED = 5001;
-    private static final int RC_SIGN_IN = 9001;
     // Client variables
     private AchievementsClient mAchievementsClient;
     private LeaderboardsClient mLeaderboardsClient;
-    private final AccomplishmentsOutbox mOutbox = new AccomplishmentsOutbox();
-    public static RewardedVideoAd rewardedVideoAd;
     private String latestVersion;
 
     @SuppressLint("NewApi")
@@ -91,7 +102,6 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
         rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getApplicationContext());
@@ -126,12 +136,6 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
 
     }
 
-    Runnable stopLoadDataDialogSomeTime = new Runnable() {
-        public void run() {
-
-        }
-    };
-
     @Override
     protected void onPause() {
         AppController.StopSound();
@@ -145,14 +149,12 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
         signInSilently();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-
 
     private void onConnected(GoogleSignInAccount googleSignInAccount) {
         Log.d("", "onConnected(): connected to Google APIs");
@@ -180,7 +182,6 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
                     }
                 });
     }
-
 
     private void switchToFragment(Fragment newFrag) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, newFrag).commit();
@@ -214,7 +215,6 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
         mPlayersClient = null;
         fragmentMainMenu.setShowSignInButton(true);
     }
-
 
     private void handleException(Exception e, String details) {
         int status = 0;
@@ -440,7 +440,6 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
 
     }
 
-
     private void signInSilently() {
 
         mGoogleSignInClient.silentSignIn().addOnCompleteListener(this,
@@ -456,8 +455,6 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
                 });
     }
 
-    boolean addList = false;
-
     @Override
     public void onBackPressed() {
         getSupportFragmentManager().popBackStack();
@@ -471,11 +468,6 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
         }
 
     }
-
-    private final Runnable mUpdateUITimerTask = new Runnable() {
-        public void run() {
-        }
-    };
 
     @Override
     public void onEnteredScore(int score) {
@@ -505,30 +497,30 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
         // achievement.
 
         int levelNo = SettingsPreferences.getNoCompletedLevel(context);
-        System.out.println("chek leavel" +levelNo);
+        System.out.println("chek leavel" + levelNo);
         // here give condition if each condition is met;if so, unlock the corresponding achievement.
 
 
         //give achievement when level comleted
         if (levelNo == 1) {
             mOutbox.achievement_level_1 = true;
-            System.out.println("chek leavel" +levelNo);
+            System.out.println("chek leavel" + levelNo);
         }
         if (levelNo == 2) {
-            System.out.println("chek leavel" +levelNo);
+            System.out.println("chek leavel" + levelNo);
             mOutbox.achievement_level_1 = true;
             mOutbox.achievement_level_2 = true;
 
         }
         if (levelNo == 3) {
-            System.out.println("chek leavel" +levelNo);
+            System.out.println("chek leavel" + levelNo);
             mOutbox.achievement_level_1 = true;
             mOutbox.achievement_level_2 = true;
             mOutbox.achievement_level_3 = true;
 
         }
         if (levelNo == 4) {
-            System.out.println("chek leavel" +levelNo);
+            System.out.println("chek leavel" + levelNo);
             mOutbox.achievement_level_1 = true;
             mOutbox.achievement_level_2 = true;
             mOutbox.achievement_level_3 = true;
@@ -536,7 +528,7 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
 
         }
         if (levelNo == 5) {
-            System.out.println("chek leavel" +levelNo);
+            System.out.println("chek leavel" + levelNo);
             mOutbox.achievement_level_1 = true;
             mOutbox.achievement_level_2 = true;
             mOutbox.achievement_level_3 = true;
@@ -545,7 +537,7 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
 
         }
         if (levelNo == 6) {
-            System.out.println("chek leavel" +levelNo);
+            System.out.println("chek leavel" + levelNo);
             mOutbox.achievement_level_1 = true;
             mOutbox.achievement_level_2 = true;
             mOutbox.achievement_level_3 = true;
@@ -1061,6 +1053,10 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
                 });
     }
 
+    @Override
+    public void onPanelClosed(int featureId, Menu menu) {
+        super.onPanelClosed(featureId, menu);
+    }
 
     private class AccomplishmentsOutbox {
         boolean achievement_level_1 = false;
@@ -1104,10 +1100,5 @@ public class QuizActivity extends AppCompatActivity implements FragmentPlay.Call
                     !mArrogantAchievement && mBoredSteps == 0;
         }*/
 
-    }
-
-    @Override
-    public void onPanelClosed(int featureId, Menu menu) {
-        super.onPanelClosed(featureId, menu);
     }
 }

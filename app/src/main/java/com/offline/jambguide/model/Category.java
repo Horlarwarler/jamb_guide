@@ -3,9 +3,9 @@ package com.offline.jambguide.model;
 import java.util.ArrayList;
 
 public class Category {
-    int id;
-    private String name,image;
     public ArrayList<SubCategory> subCategoryList;
+    int id;
+    private String name, image;
 
     public Category() {
     }
@@ -21,12 +21,13 @@ public class Category {
     public String getName() {
         return name;
     }
-    public String getImage() {
-        return image;
-    }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public void setImage(String image) {

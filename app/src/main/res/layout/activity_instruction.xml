@@ -46,8 +46,7 @@
         android:id="@+id/contents_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/divider"
-       >
+        android:layout_below="@+id/divider">
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -57,8 +56,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
 
                 <LinearLayout
@@ -128,9 +126,9 @@
                             <TextView
 
                                 android:layout_width="match_parent"
-                                android:padding="8dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:padding="8dp"
                                 android:text="minus 2 points for each question"
                                 android:textColor="@color/green_text" />
                         </LinearLayout>
@@ -334,8 +332,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="@dimen/view_left_right_margin"
                             android:text="You can achieved Achievement and level"
-                            android:textColor="@color/green_text"
-                           />
+                            android:textColor="@color/green_text" />
                     </LinearLayout>
 
                 </LinearLayout>

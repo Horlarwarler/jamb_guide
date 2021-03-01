@@ -1,8 +1,10 @@
 package com.offline.jambguide.fragment;
 
 
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,15 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.offline.jambguide.databinding.FragmentDashboardBinding;
-import  com.offline.jambguide.utils.PanelHandler;
-
-
-
-
+import com.offline.jambguide.utils.PanelHandler;
 
 
 public class DashboardFragment extends Fragment {

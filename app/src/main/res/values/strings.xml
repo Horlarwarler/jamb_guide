@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Jamb Student\'s Guide </string>
+    <string name="app_name">Jamb Cbt Blaster </string>
     <string name="completed">Congratulations! \n You have completed the level.</string>
-    <string name="not_completed">Oops! \n Level not completed.Play again! </string>
+    <string name="not_completed">Oops! \n Level not completed.Play again! \n You need a minimum of </string>
     <string name="setting_heading">Settings </string>
     <string name="select_level">Select Level</string>
     <string name="select_category">Select Category</string>
@@ -45,5 +45,34 @@
     <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="jamb_syllabus">Jamb Syllabus</string>
+    <string name="english">English</string>
+    <string name="mathematics">Mathematics</string>
+    <string name="chemistry">Chemistry</string>
+    <string name="physics">Physics</string>
+    <string name="biology">Biology</string>
+    <string name="government">Government</string>
+    <string name="literature_in_english">Literature In English</string>
+    <string name="christian_religious_study">Christian Religious Study</string>
+    <string name="islamic_religious_study">Islamic Religious Study</string>
+    <string name="economics">Economics</string>
+    <string name="commerce">Commerce</string>
+    <string name="account">Account</string>
+    <string name="past_question">Practise Jamb Series on your Mobile device instead of using the traditional Books</string>
+    <string name="syllabus">Display full List of jamb updated syllabus with different category</string>
+    <string name="cut_off_mark">Different school with different cut off mark for different school visit this to  for your school</string>
+    <string name="jamb_brochure">Jamb Brochure</string>
+    <string name="practise_question">Past Question</string>
+    <string name="online_cbt">Online Cbt</string>
+    <string name="offline_cbt">Offline Cbt</string>
+    <string name="admission_status">Visit jamb Caps to check for your jamb website  </string>
+    <string name="offline_cbt_text">Practise interactive Jamb Question with fun, with or without internet connection</string>
+    <string name="jamb_news">Visit jamb news website to stay up to date with information</string>
+    <string name="online_cbt_text">Are you on a free WIFI, or have a small Data for learning,you can practise  rich jamb CBT Question</string>
+    <string name="app_description">Jamb Guide, a must app for every student participating in the upcoming jamb </string>
+    <string name="about_me"> Designed by Dr Crezent, Ceo of Crezent Solution. A young student and developer trying to create easy solution</string>
+    <string name="about_contact">About/Contact</string>
+    <string name="about_app">About App</string>
+    <string name="about_developer">About Developer</string>
+    <string name="app_features">App Features</string>
 </resources>

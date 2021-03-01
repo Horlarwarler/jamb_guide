@@ -4,11 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,28 +11,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.offline.jambguide.activity.QuizActivity;
-import com.offline.jambguide.R;
-import com.offline.jambguide.activity.SettingActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.offline.jambguide.AppController;
-import com.offline.jambguide.helper.SettingsPreferences;
 import com.offline.jambguide.Constant;
+import com.offline.jambguide.R;
+import com.offline.jambguide.activity.QuizActivity;
+import com.offline.jambguide.activity.SettingActivity;
+import com.offline.jambguide.helper.SettingsPreferences;
 import com.offline.jambguide.model.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentLock extends Fragment {
-    LevelListAdapter adapter;
-
-    public View v;
-    private static int levelNo = 1;
     public static Context mcontex;
+    private static int levelNo = 1;
+    public View v;
+    LevelListAdapter adapter;
     List<Level> levelList;
     RecyclerView recyclerView;
     ImageView back, setting;
     TextView tvLevel, emtyMsg;
     RecyclerView.LayoutManager layoutManager;
+    String levelNO;
 
 
     @Override
@@ -61,7 +62,7 @@ public class FragmentLock extends Fragment {
 //        Constant.totalLevel = MainActivity.DBHelper.GetMaxLevel(Constant.categoryId,Constant.subCategoryId);
         Constant.totalLevel = QuizActivity.DBHelper.GetMaxLevelSingleCat(Constant.categoryId);
 //        Constant.subCategoryId
-        System.out.println("max level  "+ levelNo);
+        System.out.println("max level  " + levelNo);
         if (Constant.totalLevel == 0) {
             emtyMsg.setVisibility(View.VISIBLE);
         }
@@ -112,9 +113,9 @@ public class FragmentLock extends Fragment {
 
     public class LevelListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+        private final List<Level> cardList;
         public int resourceLayout;
         public Activity activity;
-        private List<Level> cardList;
         public FragmentPlay fragmentPlay = new FragmentPlay();
 
 
@@ -134,8 +135,24 @@ public class FragmentLock extends Fragment {
             LevelViewHolder viewHolder = (LevelViewHolder) holder;
             Level card = cardList.get(position);
             viewHolder.title.setText(card.getEnglishTitle());
-            viewHolder.question_no.setText("que : " + 10);
-            if (card.getlock() >= position + 1) {
+
+            int noquestion;
+            switch (position) {
+                case 1:
+                    noquestion = 30;
+                    break;
+                case 2:
+                    noquestion = 40;
+                    break;
+                default:
+                    noquestion = 20;
+
+            }
+
+            String questionNo = "que : " + noquestion;
+
+            viewHolder.question_no.setText(questionNo);
+            if (card.getlock() >= position + 3) {
                 viewHolder.lock.setImageResource(R.drawable.unlock);
             } else {
                 viewHolder.lock.setImageResource(R.drawable.lock);
@@ -151,9 +168,17 @@ public class FragmentLock extends Fragment {
                     if (SettingsPreferences.getVibration(activity)) {
                         Constant.vibrate(activity, Constant.VIBRATION_DURATION);
                     }
-                    Constant.RequestlevelNo = position + 1;
-                    if (levelNo >= position + 1) {
+                    Bundle args = new Bundle();
+                    args.putInt("totalQues", position);
+
+                    if (levelNo >= position + 3) {
+                        Toast.makeText(activity, "Level is  unLocked", Toast.LENGTH_SHORT).show();
+//                        FragmentPlay nextfrag = new FragmentPlay();
+//                        fragmentPlay.setArguments(args);
+//                        getActivity().getSupportFragmentManager().beginTransaction()
+//                                .replace(R.id.fragment_container,nextfrag)
                         FragmentTransaction ft = ((QuizActivity) activity).getSupportFragmentManager().beginTransaction();
+                        fragmentPlay.setArguments(args);
                         ft.replace(R.id.fragment_container, fragmentPlay, "fragment");
                         ft.addToBackStack("tag");
                         ft.commit();

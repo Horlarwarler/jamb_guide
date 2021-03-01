@@ -25,5 +25,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="level not available !"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

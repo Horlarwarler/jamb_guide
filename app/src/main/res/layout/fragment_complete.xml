@@ -71,8 +71,8 @@
                 android:id="@+id/score_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_below="@+id/coin_layout"
+                android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal"
                 android:padding="5dp"
@@ -194,10 +194,10 @@
                 android:layout_height="@dimen/result_circle"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                app:progressColor="@color/white"
-                app:progressBackgroundColor="@color/green_text"
                 android:background="@drawable/progress_bar_bg"
-                app:direction="clockwise" />
+                app:direction="clockwise"
+                app:progressBackgroundColor="@color/green_text"
+                app:progressColor="@color/white" />
 
             <LinearLayout
 
@@ -279,8 +279,8 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     app:cardCornerRadius="25dp">
 
                     <Button

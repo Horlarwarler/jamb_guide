@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/lock"
             android:layout_margin="5dp"
+            android:layout_toRightOf="@+id/lock"
             android:text="Level"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@color/white"
@@ -42,9 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_margin="5dp"
-            android:textStyle="bold"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textStyle="bold" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
 

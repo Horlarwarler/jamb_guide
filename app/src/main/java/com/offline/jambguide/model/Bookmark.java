@@ -1,8 +1,8 @@
 package com.offline.jambguide.model;
 
 public class Bookmark {
-    private int id,que_id;
-    private String question,answer,solution;
+    private int id, que_id;
+    private String question, answer, solution;
 
     public int getId() {
         return id;

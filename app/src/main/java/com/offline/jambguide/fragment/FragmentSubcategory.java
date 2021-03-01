@@ -4,13 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,32 +11,37 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.material.snackbar.Snackbar;
 import com.offline.jambguide.AppController;
 import com.offline.jambguide.Constant;
 import com.offline.jambguide.R;
 import com.offline.jambguide.activity.QuizActivity;
 import com.offline.jambguide.activity.SettingActivity;
-
 import com.offline.jambguide.helper.CircleImageView;
 import com.offline.jambguide.helper.SettingsPreferences;
 import com.offline.jambguide.model.SubCategory;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
 import static com.offline.jambguide.fragment.FragmentPlay.loadRewardedVideoAd;
 
 public class FragmentSubcategory extends Fragment {
-    private RecyclerView recyclerView;
-    private View view;
-
     ArrayList<SubCategory> mListItem;
     AdView mAdView;
     TextView txtblanklist, tvTitle;
     CoordinatorLayout layout;
     ImageView back, setting;
+    private RecyclerView recyclerView;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -135,8 +133,8 @@ public class FragmentSubcategory extends Fragment {
     }
 
     public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ItemRowHolder> {
-        private ArrayList<SubCategory> dataList;
-        private Context mContext;
+        private final ArrayList<SubCategory> dataList;
+        private final Context mContext;
         public FragmentLock fragmentlock = new FragmentLock();
 
         public SubCategoryAdapter(Context context, ArrayList<SubCategory> dataList) {

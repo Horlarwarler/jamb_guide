@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Review {
 
+    public ArrayList<String> optionList;
     private String question, rightAns, wrongAns;
     private int queId;
-    public ArrayList<String> optionList;
 
     public Review() {
     }
 
-    public Review(int queId,String question, String rightAns, String wrongAns, ArrayList<String> optionList) {
+    public Review(int queId, String question, String rightAns, String wrongAns, ArrayList<String> optionList) {
         this.queId = queId;
         this.question = question;
         this.rightAns = rightAns;

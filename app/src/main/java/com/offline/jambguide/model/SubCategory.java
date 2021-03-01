@@ -3,10 +3,10 @@ package com.offline.jambguide.model;
 import java.util.ArrayList;
 
 public class SubCategory {
-    private int id;
-    private String  name, image, categoryId;
-    int totalLevel;
     public ArrayList<Quizplay> questionList;
+    int totalLevel;
+    private int id;
+    private String name, image, categoryId;
 
     public SubCategory() {
     }
@@ -24,28 +24,28 @@ public class SubCategory {
         return name;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public int getTotalLevel() {
-        return totalLevel;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
 
+    public String getCategoryId() {
+        return categoryId;
+    }
+
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public int getTotalLevel() {
+        return totalLevel;
     }
 
     public void setTotalLevel(int totalLevel) {

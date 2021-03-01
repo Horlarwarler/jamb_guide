@@ -16,12 +16,12 @@ public class Quizplay {
         this.id = id;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
     public String getQuestion() {
         return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public boolean addOption(String option) {

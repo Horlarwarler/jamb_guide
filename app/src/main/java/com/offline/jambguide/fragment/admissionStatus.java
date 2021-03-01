@@ -1,24 +1,23 @@
 package com.offline.jambguide.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.offline.jambguide.R;
-
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.fragment.app.Fragment;
+
+import com.offline.jambguide.R;
+
 
 public class admissionStatus extends Fragment {
 
-   //FragmentAdmissionStatusBinding FragmentAdmissionStatusBinding;
-    public  WebView myWebview;
+    //FragmentAdmissionStatusBinding FragmentAdmissionStatusBinding;
+    public WebView myWebview;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,7 +29,7 @@ public class admissionStatus extends Fragment {
         myWebview.loadUrl("https://www.jamb.gov.ng/Efacility");
 
         // Enable Javascript
-        WebSettings webSettings =myWebview.getSettings();
+        WebSettings webSettings = myWebview.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
         // Force links and redirects to open in the WebView instead of in a browser
@@ -40,7 +39,7 @@ public class admissionStatus extends Fragment {
     }
 
     public void onBackPressed() {
-        if(myWebview.canGoBack()) {
+        if (myWebview.canGoBack()) {
             myWebview.goBack();
         } else {
             super.requireActivity().onBackPressed();

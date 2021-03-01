@@ -1,38 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_menu"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/imgBookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/bookmark_img"
         android:layout_alignParentEnd="true"
         android:padding="12dp"
-        />
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/mainlogo"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_above="@+id/mid_screen">-->
+        app:srcCompat="@drawable/bookmark_img" />
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/mainlogo"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_above="@+id/mid_screen">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/logo"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:padding="10dp"-->
-<!--            android:src="@drawable/logo" />-->
-
-
+    <!--        <ImageView-->
+    <!--            android:id="@+id/logo"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:src="@drawable/logo" />-->
 
 
-
-
-
-<!--    </RelativeLayout>-->
+    <!--    </RelativeLayout>-->
 
     <LinearLayout
         android:id="@+id/mid_screen"
@@ -40,29 +34,28 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom"
         android:gravity="center"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <ImageView
             android:id="@+id/instruction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:padding="10dp"
-            android:layout_weight="1"
             android:src="@drawable/instruction_img" />
 
-            <ImageView
-                android:id="@+id/english"
-                style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:padding="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/start_img" />
-
+        <ImageView
+            android:id="@+id/english"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/start_img" />
 
 
     </LinearLayout>
@@ -71,67 +64,65 @@
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-       >
+        android:layout_alignParentBottom="true">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="5">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <ImageView
+                android:id="@+id/leaderbord1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
-                android:weightSum="5">
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:minWidth="60dp"
+                android:src="@drawable/leaderboard_img" />
 
 
-                <ImageView
-                    android:id="@+id/leaderbord1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:minWidth="60dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/leaderboard_img" />
+            <ImageView
+                android:id="@+id/achivments1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:minWidth="60dp"
+                android:src="@drawable/trophy_img" />
 
+            <ImageView
+                android:id="@+id/setting1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:minWidth="60dp"
+                android:src="@drawable/settings_img" />
 
-                <ImageView
-                    android:id="@+id/achivments1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:minWidth="60dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/trophy_img" />
+            <ImageView
+                android:id="@+id/sign_in_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/signin_img"
+                android:text="Sign in" />
 
-                <ImageView
-                    android:id="@+id/setting1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:minWidth="60dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/settings_img" />
-
-                <ImageView
-                    android:id="@+id/sign_in_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/signin_img"
-                    android:text="Sign in"
-                    android:layout_marginEnd="10dp"/>
-
-                <ImageView
-                    android:id="@+id/sign_out_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/singout"
-                    android:visibility="gone"
-                    android:layout_marginEnd="10dp"/>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/sign_out_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/singout"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </RelativeLayout>
 

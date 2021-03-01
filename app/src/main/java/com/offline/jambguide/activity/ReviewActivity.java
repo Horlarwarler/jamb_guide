@@ -1,13 +1,14 @@
 package com.offline.jambguide.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.offline.jambguide.R;
 import com.offline.jambguide.fragment.FragmentPlay;
@@ -24,13 +25,13 @@ public class ReviewActivity extends AppCompatActivity {
     public TextView txtQuestion, btnOpt1, btnOpt2, btnOpt3, btnOpt4, tvLevel, tvQuestionNo;
     public ImageView prev, next, back, setting, bookmark;
     public RelativeLayout layout_A, layout_B, layout_C, layout_D;
-    private int questionIndex = 0;
-    // QuizLevel level;
-    private int NO_OF_QUESTION;
     public Button btnExtra;
     public TextView tvNote;
     public CardView cardView;
     public ArrayList<Review> reviews = new ArrayList<>();
+    private int questionIndex = 0;
+    // QuizLevel level;
+    private int NO_OF_QUESTION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class ReviewActivity extends AppCompatActivity {
         tvQuestionNo = (TextView) findViewById(R.id.questionNo);
         btnExtra = (Button) findViewById(R.id.btnExtra);
         tvNote = (TextView) findViewById(R.id.tvNote);
-cardView=(CardView)findViewById(R.id.cardView1) ;
+        cardView = (CardView) findViewById(R.id.cardView1);
         bookmark.setVisibility(View.VISIBLE);
         setting.setVisibility(View.INVISIBLE);
         tvLevel.setText(getString(R.string.review_answer));
@@ -112,10 +113,9 @@ cardView=(CardView)findViewById(R.id.cardView1) ;
 
             tvQuestionNo.setText(" " + (questionIndex + 1) + "/" + reviews.size());
             String note = QuizActivity.DBHelper.getQuestionSolution(reviews.get(questionIndex).getQueId());
-            if (note.isEmpty()){
+            if (note.isEmpty()) {
                 btnExtra.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 btnExtra.setVisibility(View.VISIBLE);
             }
 
@@ -128,8 +128,8 @@ cardView=(CardView)findViewById(R.id.cardView1) ;
                         System.out.println("get---" + reviews.get(questionIndex).getQueId());
                         QuizActivity.bookmarkDBHelper.insertIntoDB(reviews.get(questionIndex).getQueId(),
                                 reviews.get(questionIndex).getQuestion(),
-                                reviews.get(questionIndex).getRightAns(),solution);
-                        System.out.println("ans---" + reviews.get(questionIndex).getRightAns()+"---"+solution + "=---" + reviews.get(questionIndex).getQuestion());
+                                reviews.get(questionIndex).getRightAns(), solution);
+                        System.out.println("ans---" + reviews.get(questionIndex).getRightAns() + "---" + solution + "=---" + reviews.get(questionIndex).getQuestion());
                         bookmark.setImageResource(R.drawable.ic_mark);
                         bookmark.setTag("mark");
                     } else {

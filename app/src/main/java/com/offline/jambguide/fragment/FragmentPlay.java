@@ -10,8 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,23 +21,24 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.offline.jambguide.activity.QuizActivity;
-import com.offline.jambguide.R;
-import com.offline.jambguide.activity.SettingActivity;
-import com.offline.jambguide.AppController;
-import com.offline.jambguide.helper.CheckNetworkConnection;
-import com.offline.jambguide.helper.CircularProgressIndicator;
-import com.offline.jambguide.helper.CircularProgressIndicator2;
+import androidx.fragment.app.Fragment;
 
-import com.offline.jambguide.helper.SettingsPreferences;
-import com.offline.jambguide.Constant;
-import com.offline.jambguide.model.QuizLevel;
-import com.offline.jambguide.model.Review;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.offline.jambguide.AppController;
+import com.offline.jambguide.Constant;
+import com.offline.jambguide.R;
+import com.offline.jambguide.activity.QuizActivity;
+import com.offline.jambguide.activity.SettingActivity;
+import com.offline.jambguide.helper.CheckNetworkConnection;
+import com.offline.jambguide.helper.CircularProgressIndicator;
+import com.offline.jambguide.helper.CircularProgressIndicator2;
+import com.offline.jambguide.helper.SettingsPreferences;
+import com.offline.jambguide.model.QuizLevel;
+import com.offline.jambguide.model.Review;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,54 +53,189 @@ public class FragmentPlay extends Fragment implements OnClickListener {
 
 
     public static AdRequest adRequest;
-    private static int levelNo = 1;
     public static QuizLevel level;
     public static QuizLevel ReviewList;
-    private int quextionIndex = 0;
-    private int btnposition = 0;
-
-    private int totalScore = 0;
-    private int count_question_completed = 0;
-    private int score = 0;
-    public int coin = 6;
-    public int level_coin = 6;
-    private int correctQuestion = 0;
-    private int inCorrectQuestion = 0;
-    int rightAns;
-    public FragmentComplete fragmentComplete;
-
-    public ImageView fifty_fifty, skip_quation, resettimer, audience_poll, back, setting;
-    private TextView txtQuestionIndex, txtQuestion, btnOpt1, btnOpt2, btnOpt3, btnOpt4, tvLevel;
-    TextView txtScore, txtTrueQuestion, txtFalseQuestion, coin_count;
-
-    public SharedPreferences settings;
-    RelativeLayout layout_A, layout_B, layout_C, layout_D, layout_A1, layout_B1, layout_C1, layout_D1;
-    private Animation animation;
-    private final Handler mHandler = new Handler();
     public static SharedPreferences.Editor editor;
-    private View v;
-    Animation RightSwipe_A, RightSwipe_B, RightSwipe_C, RightSwipe_D, Fade_in, fifty_fifty_anim;
-    private CircularProgressIndicator2 progressBarTwo_A, progressBarTwo_B, progressBarTwo_C, progressBarTwo_D;
-    CircularProgressIndicator pwOne;
     public static MyCountDownTimer myCountDownTimer;
     public static Context mcontex;
-    private static InterstitialAd interstitial;
     public static Callback mCallback = null;
     public static ArrayList<String> rightList = new ArrayList<String>();
     public static ArrayList<String> wrongList = new ArrayList<String>();
     public static ArrayList<String> options;
     public static ArrayList<Review> reviews = new ArrayList<>();
-    MyCountDownTimer myCountDownTimer1;
-
-
+    private static int levelNo = 1;
+    private static InterstitialAd interstitial;
+    private final Handler mHandler = new Handler();
+    public int coin = 6;
+    public int level_coin = 6;
+    public FragmentComplete fragmentComplete;
+    public ImageView fifty_fifty, skip_quation, resettimer, audience_poll, back, setting;
+    public SharedPreferences settings;
     public long leftTime = 0;
+    public int position;
+    int rightAns;
+    TextView txtScore, txtTrueQuestion, txtFalseQuestion, coin_count;
+    RelativeLayout layout_A, layout_B, layout_C, layout_D, layout_A1, layout_B1, layout_C1, layout_D1;
+    Animation RightSwipe_A, RightSwipe_B, RightSwipe_C, RightSwipe_D, Fade_in, fifty_fifty_anim;
+    CircularProgressIndicator pwOne;
+    MyCountDownTimer myCountDownTimer1;
+    RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
+        @Override
+        public void onRewardedVideoAdLoaded() {
+        }
+
+        @Override
+        public void onRewardedVideoAdOpened() {
+        }
+
+        @Override
+        public void onRewardedVideoStarted() {
+        }
+
+        @Override
+        public void onRewardedVideoAdClosed() {
+            loadRewardedVideoAd();
+        }
+
+        @Override
+        public void onRewarded(RewardItem reward) {
+            // Reward the user.
+            coin = coin + 8;
+        }
+
+        @Override
+        public void onRewardedVideoAdLeftApplication() {
+        }
+
+        @Override
+        public void onRewardedVideoAdFailedToLoad(int i) {
+        }
+
+        @Override
+        public void onRewardedVideoCompleted() {
+
+        }
+    };
+    private int quextionIndex = 0;
+    private int btnposition = 0;
+    private int totalScore = 0;
+    private int count_question_completed = 0;
+    private int score = 0;
+    private int correctQuestion = 0;
+    private int inCorrectQuestion = 0;
+    private TextView txtQuestionIndex, txtQuestion, btnOpt1, btnOpt2, btnOpt3, btnOpt4, tvLevel;
+    private Animation animation;
+    private View v;
+    private CircularProgressIndicator2 progressBarTwo_A, progressBarTwo_B, progressBarTwo_C, progressBarTwo_D;
+    private final Runnable mUpdateUITimerTask = new Runnable() {
+        public void run() {
+            layout_A.setBackgroundResource(R.drawable.answers_background);
+            layout_B.setBackgroundResource(R.drawable.answers_background);
+            layout_C.setBackgroundResource(R.drawable.answers_background);
+            layout_D.setBackgroundResource(R.drawable.answers_background);
+            layout_A.clearAnimation();
+            layout_B.clearAnimation();
+            layout_C.clearAnimation();
+            layout_D.clearAnimation();
+            layout_A1.clearAnimation();
+            layout_B1.clearAnimation();
+            layout_C1.clearAnimation();
+            layout_D1.clearAnimation();
+
+            if (getActivity() != null) {
+                nextQuizQuestion();
+            }
+        }
+    };
+
+    public static void loadRewardedVideoAd() {
+
+        if (!rewardedVideoAd.isLoaded()) {
+            rewardedVideoAd.loadAd(context.getResources().getString(R.string.admob_Rewarded_Video_Ads), new AdRequest.Builder().build());
+        }
+    }
+
+    public static void displayInterstitial() {
+        if (interstitial.isLoaded()) {
+            interstitial.show();
+
+        } else {
+            adRequest = new AdRequest.Builder().build();
+            interstitial.loadAd(adRequest);
+            interstitial.show();
+
+        }
+
+    }
+
+    public int getTotalQuestion() {
+        int totalTime;
+        position = getArguments().getInt("totalQues");
+        switch (position) {
+            case 1:
+                totalTime = 30;
+                break;
+
+
+            case 2:
+                totalTime = 40;
+
+                break;
+
+            default:
+                totalTime = 20;
+
+
+        }
+        return totalTime;
+    }
+
+    public int getTime() {
+        int questionTime;
+        position = getArguments().getInt("totalQues");
+        switch (position) {
+            case 1:
+                questionTime = 45000;
+                break;
+            case 2:
+                questionTime = 35000;
+
+                break;
+            default:
+
+                questionTime = 60000;
+
+
+        }
+        return questionTime;
+
+    }
+
+    public Boolean passlevel() {
+        boolean levelCompleted = false;
+        switch (position) {
+            case 1:
+                if (correctQuestion >= 25) {
+                    levelCompleted = true;
+                }
+                break;
+            case 2:
+                if (correctQuestion >= 35) {
+                    levelCompleted = true;
+                }
+                break;
+            default:
+                if (correctQuestion >= 2) {
+                    levelCompleted = true;
+                }
+
+
+        }
+        return levelCompleted;
+    }
 
     public void setCallback(Callback callback) {
         mCallback = callback;
-    }
-
-    public interface Callback {
-        void onEnteredScore(int score);
     }
 
     @Override
@@ -112,7 +246,7 @@ public class FragmentPlay extends Fragment implements OnClickListener {
         for (int i : CLICKABLES) {
             v.findViewById(i).setOnClickListener(this);
         }
-        mcontex = getActivity().getBaseContext();
+        mcontex = requireActivity().getBaseContext();
 
 
         RightSwipe_A = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_right_a);
@@ -149,7 +283,7 @@ public class FragmentPlay extends Fragment implements OnClickListener {
                 //after ad close or remove ,timer should be start
                 @Override
                 public void onAdClosed() {
-                    myCountDownTimer1 = new MyCountDownTimer(Constant.TIME_PER_QUESTION, Constant.COUNT_DOWN_TIMER);
+                    myCountDownTimer1 = new MyCountDownTimer(getTime(), Constant.COUNT_DOWN_TIMER);
                     myCountDownTimer1.start();
                 }
             });
@@ -225,80 +359,6 @@ public class FragmentPlay extends Fragment implements OnClickListener {
         }
     }
 
-    public static void loadRewardedVideoAd() {
-
-        if (!rewardedVideoAd.isLoaded()) {
-            rewardedVideoAd.loadAd(context.getResources().getString(R.string.admob_Rewarded_Video_Ads), new AdRequest.Builder().build());
-        }
-    }
-
-    RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
-        @Override
-        public void onRewardedVideoAdLoaded() {
-        }
-
-        @Override
-        public void onRewardedVideoAdOpened() {
-        }
-
-        @Override
-        public void onRewardedVideoStarted() {
-        }
-
-        @Override
-        public void onRewardedVideoAdClosed() {
-            loadRewardedVideoAd();
-        }
-
-        @Override
-        public void onRewarded(RewardItem reward) {
-            // Reward the user.
-            coin = coin + 4;
-        }
-
-        @Override
-        public void onRewardedVideoAdLeftApplication() {
-        }
-
-        @Override
-        public void onRewardedVideoAdFailedToLoad(int i) {
-        }
-
-        @Override
-        public void onRewardedVideoCompleted() {
-
-        }
-    };
-
-    public class MyCountDownTimer extends CountDownTimer {
-
-        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            leftTime = millisUntilFinished;
-            int progress = (int) (millisUntilFinished / Constant.COUNT_DOWN_TIMER);
-            pwOne.setCurrentProgress(progress);
-            //pwOne.setText("" + progress);
-        }
-
-        @Override
-        public void onFinish() {
-            if (quextionIndex >= Constant.NO_OF_QUESTIONS_PER_LEVEL - 1) {
-                levelCompleted();
-
-            } else {
-                quextionIndex++;
-                //wrongeQuestion();
-                mHandler.postDelayed(mUpdateUITimerTask, 100);
-            }
-
-        }
-    }
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -319,7 +379,7 @@ public class FragmentPlay extends Fragment implements OnClickListener {
             leftTime = 0;
         }
         leftTime = 0;
-        if (quextionIndex >= Constant.NO_OF_QUESTIONS_PER_LEVEL) {
+        if (quextionIndex >= getTotalQuestion()) {
             levelCompleted();
         }
         layout_A.setClickable(true);
@@ -331,9 +391,9 @@ public class FragmentPlay extends Fragment implements OnClickListener {
         layout_C.startAnimation(RightSwipe_C);
         layout_D.startAnimation(RightSwipe_D);
         txtQuestion.startAnimation(Fade_in);
-        if (quextionIndex < level.getNoOfQuestion()) {
+        if (quextionIndex < getTotalQuestion()) {
             int temp = quextionIndex;
-            txtQuestionIndex.setText(++temp + "/" + Constant.NO_OF_QUESTIONS_PER_LEVEL);
+            txtQuestionIndex.setText(++temp + "/" + getTotalQuestion());
             String imgName = level.getQuestion().get(quextionIndex).getQuestion();
             Pattern p = Pattern.compile(" \r\n");
             Matcher m = p.matcher(imgName);
@@ -353,12 +413,12 @@ public class FragmentPlay extends Fragment implements OnClickListener {
     }
 
     public void levelCompleted() {
-        Constant.TotalQuestion = Constant.NO_OF_QUESTIONS_PER_LEVEL;
+        Constant.TotalQuestion = getTotalQuestion();
         Constant.CoreectQuetion = correctQuestion;
         Constant.WrongQuation = inCorrectQuestion;
         myCountDownTimer.cancel();
         editor = settings.edit();
-        if (correctQuestion >= 3 && levelNo == Constant.RequestlevelNo) {
+        if (passlevel() && levelNo == Constant.RequestlevelNo) {
             levelNo = levelNo + 1;
 //            if (MainActivity.DBHelper.isExist(Constant.categoryId, Constant.subCategoryId)) {
 //                MainActivity.DBHelper.UpdateLevel(Constant.categoryId, Constant.subCategoryId, levelNo);
@@ -373,11 +433,9 @@ public class FragmentPlay extends Fragment implements OnClickListener {
             }
             SettingsPreferences.setNoCompletedLevel(mcontex, levelNo);
         }
-        if (correctQuestion >= 3) {
-            editor.putBoolean(SettingsPreferences.IS_LAST_LEVEL_COMPLETED, true);
-        } else {
-            editor.putBoolean(SettingsPreferences.IS_LAST_LEVEL_COMPLETED, false);
-        }
+
+
+        editor.putBoolean(SettingsPreferences.IS_LAST_LEVEL_COMPLETED, passlevel());
         if (correctQuestion >= 3 && correctQuestion <= 4) {
             coin = coin + 1;
             level_coin = 1;
@@ -402,6 +460,9 @@ public class FragmentPlay extends Fragment implements OnClickListener {
         mcontex = getActivity().getBaseContext();
         saveScore();
         getActivity().getSupportFragmentManager().popBackStack();
+        Bundle args = new Bundle();
+        args.putInt("totalQues", position);
+        fragmentComplete.setArguments(args);
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
@@ -411,31 +472,18 @@ public class FragmentPlay extends Fragment implements OnClickListener {
         return;
     }
 
-    public static void displayInterstitial() {
-        if (interstitial.isLoaded()) {
-            interstitial.show();
-
-        } else {
-            adRequest = new AdRequest.Builder().build();
-            interstitial.loadAd(adRequest);
-            interstitial.show();
-
-        }
-
-    }
-
     @Override
     public void onClick(View v) {
-        if (quextionIndex < level.getNoOfQuestion()) {
+        if (quextionIndex < getTotalQuestion()) {
             layout_A.setClickable(false);
             layout_B.setClickable(false);
             layout_C.setClickable(false);
             layout_D.setClickable(false);
-            if (progressBarTwo_A.getVisibility() == (v.VISIBLE)) {
-                progressBarTwo_A.setVisibility(v.GONE);
-                progressBarTwo_B.setVisibility(v.GONE);
-                progressBarTwo_C.setVisibility(v.GONE);
-                progressBarTwo_D.setVisibility(v.GONE);
+            if (progressBarTwo_A.getVisibility() == (View.VISIBLE)) {
+                progressBarTwo_A.setVisibility(View.GONE);
+                progressBarTwo_B.setVisibility(View.GONE);
+                progressBarTwo_C.setVisibility(View.GONE);
+                progressBarTwo_D.setVisibility(View.GONE);
             }
 
             if (myCountDownTimer1 != null) {
@@ -652,27 +700,6 @@ public class FragmentPlay extends Fragment implements OnClickListener {
         txtScore.setText("" + totalScore);
     }
 
-    private final Runnable mUpdateUITimerTask = new Runnable() {
-        public void run() {
-            layout_A.setBackgroundResource(R.drawable.answers_background);
-            layout_B.setBackgroundResource(R.drawable.answers_background);
-            layout_C.setBackgroundResource(R.drawable.answers_background);
-            layout_D.setBackgroundResource(R.drawable.answers_background);
-            layout_A.clearAnimation();
-            layout_B.clearAnimation();
-            layout_C.clearAnimation();
-            layout_D.clearAnimation();
-            layout_A1.clearAnimation();
-            layout_B1.clearAnimation();
-            layout_C1.clearAnimation();
-            layout_D1.clearAnimation();
-
-            if (getActivity() != null) {
-                nextQuizQuestion();
-            }
-        }
-    };
-
     private void addScore() {
 
         rightSound();
@@ -711,7 +738,7 @@ public class FragmentPlay extends Fragment implements OnClickListener {
 
         try {
             mCallback.onEnteredScore(totalScore);
-            System.out.println("-----/-"+totalScore);
+            System.out.println("-----/-" + totalScore);
         } catch (Exception e) {
 
         }
@@ -737,11 +764,11 @@ public class FragmentPlay extends Fragment implements OnClickListener {
     }
 
     private void setAgain() {
-        if (progressBarTwo_A.getVisibility() == (v.VISIBLE)) {
-            progressBarTwo_A.setVisibility(v.GONE);
-            progressBarTwo_B.setVisibility(v.GONE);
-            progressBarTwo_C.setVisibility(v.GONE);
-            progressBarTwo_D.setVisibility(v.GONE);
+        if (progressBarTwo_A.getVisibility() == (View.VISIBLE)) {
+            progressBarTwo_A.setVisibility(View.GONE);
+            progressBarTwo_B.setVisibility(View.GONE);
+            progressBarTwo_C.setVisibility(View.GONE);
+            progressBarTwo_D.setVisibility(View.GONE);
         }
     }
 
@@ -809,10 +836,10 @@ public class FragmentPlay extends Fragment implements OnClickListener {
                     int remain2 = remain1 - B;
                     int C = r.nextInt(((remain2 - 5) - 0) + 1) + 0;
                     int D = remain2 - C;
-                    progressBarTwo_A.setVisibility(v.VISIBLE);
-                    progressBarTwo_B.setVisibility(v.VISIBLE);
-                    progressBarTwo_C.setVisibility(v.VISIBLE);
-                    progressBarTwo_D.setVisibility(v.VISIBLE);
+                    progressBarTwo_A.setVisibility(View.VISIBLE);
+                    progressBarTwo_B.setVisibility(View.VISIBLE);
+                    progressBarTwo_C.setVisibility(View.VISIBLE);
+                    progressBarTwo_D.setVisibility(View.VISIBLE);
 
                     if (btnOpt1.getText().toString().trim().equalsIgnoreCase(level.getQuestion().get(quextionIndex).getTrueAns().trim())) {
 
@@ -996,12 +1023,12 @@ public class FragmentPlay extends Fragment implements OnClickListener {
 
         txtScore.setText("" + totalScore);
         coin_count.setText("" + coin);
-        level = new QuizLevel(Constant.RequestlevelNo, Constant.NO_OF_QUESTIONS_PER_LEVEL, QuizActivity.DBHelper);
+        level = new QuizLevel(Constant.RequestlevelNo, getTotalQuestion(), QuizActivity.DBHelper);
         level.setQuestionGuj();
         //ReviewList.setQuestionGuj();
 
         tvLevel.setText("Level" + " : " + Constant.RequestlevelNo);
-        myCountDownTimer = new MyCountDownTimer(Constant.TIME_PER_QUESTION, Constant.COUNT_DOWN_TIMER);
+        myCountDownTimer = new MyCountDownTimer(getTime(), Constant.COUNT_DOWN_TIMER);
         nextQuizQuestion();
 
 
@@ -1039,7 +1066,6 @@ public class FragmentPlay extends Fragment implements OnClickListener {
 
 
     }
-
 
     public void blankAllValue() {
         quextionIndex = 0;
@@ -1095,6 +1121,38 @@ public class FragmentPlay extends Fragment implements OnClickListener {
             myCountDownTimer.cancel();
         }
         super.onDestroy();
+    }
+
+    public interface Callback {
+        void onEnteredScore(int score);
+    }
+
+    public class MyCountDownTimer extends CountDownTimer {
+
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            leftTime = millisUntilFinished;
+            int progress = (int) (millisUntilFinished / Constant.COUNT_DOWN_TIMER);
+            pwOne.setCurrentProgress(progress);
+            //pwOne.setText("" + progress);
+        }
+
+        @Override
+        public void onFinish() {
+            if (quextionIndex >= getTotalQuestion() - 1) {
+                levelCompleted();
+
+            } else {
+                quextionIndex++;
+                //wrongeQuestion();
+                mHandler.postDelayed(mUpdateUITimerTask, 100);
+            }
+
+        }
     }
 
 }

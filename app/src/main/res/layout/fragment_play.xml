@@ -151,11 +151,11 @@
                         android:id="@+id/progressBarTwo"
                         android:layout_width="@dimen/progress_h_w"
                         android:layout_height="@dimen/progress_h_w"
-                        app:progressBackgroundColor="@color/white"
-
-
-                        app:progressColor="#FFE388"
                         app:direction="counterclockwise"
+
+
+                        app:progressBackgroundColor="@color/white"
+                        app:progressColor="#FFE388"
 
                         />
                 </RelativeLayout>
@@ -238,18 +238,19 @@
             android:layout_below="@+id/wave_layout"
             android:background="@drawable/waves_background" />
 
-        <RelativeLayout
+        <ScrollView
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottom_panel"
-            android:layout_below="@+id/wave">
+            android:layout_below="@id/wave"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp">
 
-            <ScrollView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -261,53 +262,46 @@
 
                     <RelativeLayout
                         android:id="@+id/layout_answare"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp"
                         android:background="@drawable/question_background"
-                        android:layout_margin="20dp">
 
 
-                        <ScrollView
+                        >
+
+
+                        <TextView
+                            android:id="@+id/txtQuestion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="10dp"
+                            android:paddingStart="25dp"
 
-                            android:scrollbars="none">
+                            android:paddingTop="40dp"
+                            android:paddingEnd="25dp"
+                            android:paddingBottom="40dp"
+                            android:text="@string/app_name"
+                            android:textAlignment="center"
 
-                            <TextView
-                                android:id="@+id/txtQuestion"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:paddingStart="25dp"
-                                android:paddingTop="40dp"
-                                android:paddingEnd="25dp"
-                                android:paddingBottom="40dp"
-                                android:text="@string/app_name"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/colorPrimaryDark" />
 
-                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/colorPrimaryDark" />
-
-                        </ScrollView>
 
                         <ImageView
-                        android:id="@+id/round_emoji"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_white"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
+                            android:id="@+id/round_emoji"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/background_white"
 
-                        android:padding="5dp"
-                        app:srcCompat="@drawable/ic_round_emoji_objects_24"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/ic_round_emoji_objects_24"
 
-                        />
+                            />
                     </RelativeLayout>
-
-
-
-
 
 
                     <LinearLayout
@@ -319,17 +313,17 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
                             android:layout_weight="15"
+                            android:orientation="vertical"
                             android:weightSum="4">
 
                             <RelativeLayout
                                 android:id="@+id/layout_A"
                                 android:layout_width="@dimen/circle_progress"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginLeft="5dp"
-                                android:layout_marginTop="8dp">
+                                android:layout_marginTop="8dp"
+                                android:layout_weight="1">
 
                                 <TextView
                                     android:id="@+id/option_a"
@@ -362,8 +356,8 @@
                                 android:layout_width="@dimen/circle_progress"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:layout_weight="1"
-                                android:layout_marginTop="8dp">
+                                android:layout_marginTop="8dp"
+                                android:layout_weight="1">
 
                                 <TextView
                                     android:id="@+id/option_b"
@@ -396,9 +390,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
                                 android:layout_marginTop="8dp"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="5dp">
+                                android:layout_weight="1">
 
                                 <TextView
                                     android:id="@+id/option_c"
@@ -433,10 +427,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_weight="1"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginTop="8dp"
-                                android:layout_marginBottom="8dp">
+                                android:layout_marginBottom="8dp"
+                                android:layout_weight="1">
 
                                 <TextView
                                     android:id="@+id/option_d"
@@ -463,177 +457,168 @@
                                     android:visibility="gone"
                                     app:direction="clockwise" />
                             </RelativeLayout>
-                        </LinearLayout><LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="85">
+                        </LinearLayout>
 
-
-
-                        <RelativeLayout
-                            android:id="@+id/a_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="8dp"
-                            android:background="@drawable/answers_background">
-
-                            <LinearLayout
-                                android:id="@+id/main_option_a"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_margin="5dp"
-                                android:background="@color/transparent"
-                                android:orientation="horizontal"
-                                android:weightSum="5">
-
-                                <TextView
-                                    android:id="@+id/btnOpt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center|left"
-                                    android:padding="5dp"
-                                    android:text="Done"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                    android:textColor="@color/green_text" />
-
-
-                            </LinearLayout>
-
-
-                        </RelativeLayout>
-
-
-
-                        <RelativeLayout
-                            android:id="@+id/b_layout"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="8dp"
-                            android:background="@drawable/answers_background">
+                            android:layout_weight="85"
+                            android:orientation="vertical">
 
-                            <LinearLayout
 
-                                android:id="@+id/main_option_b"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_margin="5dp"
-                                android:orientation="horizontal">
+                            <RelativeLayout
+                                android:id="@+id/a_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="16dp"
+                                android:background="@drawable/answers_background">
 
-                                <TextView
-                                    android:id="@+id/btnOpt2"
+                                <LinearLayout
+                                    android:id="@+id/main_option_a"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center|left"
-                                    android:padding="5dp"
-                                    android:text="Done"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                    android:textColor="@color/green_text" />
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_margin="5dp"
+                                    android:background="@color/transparent"
+                                    android:orientation="horizontal"
+                                    android:weightSum="5">
+
+                                    <TextView
+                                        android:id="@+id/btnOpt1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center|left"
+
+                                        android:padding="5dp"
+                                        android:text="Done"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                        android:textColor="@color/green_text" />
 
 
-                            </LinearLayout>
+                                </LinearLayout>
 
 
+                            </RelativeLayout>
 
 
-
-                        </RelativeLayout>
-
-
-
-                        <RelativeLayout
-                            android:id="@+id/c_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-
-                            android:layout_marginTop="8dp"
-                            android:background="@drawable/answers_background">
-
-
-                            <LinearLayout
-                                android:id="@+id/main_option_c"
-
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:id="@+id/b_layout"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_margin="5dp"
-                                android:orientation="horizontal">
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="16dp"
+                                android:background="@drawable/answers_background">
 
-                                <TextView
-                                    android:id="@+id/btnOpt3"
+                                <LinearLayout
+
+                                    android:id="@+id/main_option_b"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_margin="5dp"
+                                    android:orientation="horizontal">
 
-                                    android:gravity="center"
-                                    android:padding="5dp"
-                                    android:text="Done"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                    android:textColor="@color/green_text" />
-
-
-                            </LinearLayout>
-
-
-
-
-
-                        </RelativeLayout>
+                                    <TextView
+                                        android:id="@+id/btnOpt2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center|left"
+                                        android:padding="5dp"
+                                        android:text="Done"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                        android:textColor="@color/green_text" />
 
 
-
-                        <RelativeLayout
-                            android:id="@+id/d_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/answers_background">
+                                </LinearLayout>
 
 
-                            <LinearLayout
-                                android:id="@+id/main_option_d"
-                                android:layout_width="wrap_content"
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/c_layout"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_margin="5dp"
-                                android:orientation="horizontal">
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="8dp"
 
-                                <TextView
-                                    android:id="@+id/btnOpt4"
+                                android:layout_marginRight="16dp"
+                                android:background="@drawable/answers_background">
+
+
+                                <LinearLayout
+                                    android:id="@+id/main_option_c"
+
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:padding="5dp"
-                                    android:text="Done"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                                    android:textColor="@color/green_text" />
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_margin="5dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/btnOpt3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Done"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                        android:textColor="@color/green_text" />
 
 
-                            </LinearLayout>
+                                </LinearLayout>
 
 
-                        </RelativeLayout>
+                            </RelativeLayout>
 
 
+                            <RelativeLayout
+                                android:id="@+id/d_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginBottom="8dp"
+                                android:background="@drawable/answers_background">
 
-                    </LinearLayout>
 
+                                <LinearLayout
+                                    android:id="@+id/main_option_d"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_margin="5dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/btnOpt4"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:padding="5dp"
+                                        android:text="Done"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                        android:textColor="@color/green_text" />
+
+
+                                </LinearLayout>
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
 
 
                     </LinearLayout>
                 </LinearLayout>
-            </ScrollView>
-        </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
 
         <RelativeLayout
             android:id="@+id/bottom_panel"
@@ -660,13 +645,13 @@
                     android:src="@drawable/cut_answer" />
 
                 <ImageView
-                android:id="@+id/audience_poll"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginRight="@dimen/left_rigth_margin_score_button"
-                android:layout_weight="1"
-                android:src="@drawable/audience_poll" />
+                    android:id="@+id/audience_poll"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="@dimen/left_rigth_margin_score_button"
+                    android:layout_weight="1"
+                    android:src="@drawable/audience_poll" />
 
 
                 <ImageView
@@ -677,9 +662,6 @@
                     android:layout_marginRight="@dimen/left_rigth_margin_score_button"
                     android:layout_weight="1"
                     android:src="@drawable/reset_question" />
-
-
-
 
 
                 <ImageView

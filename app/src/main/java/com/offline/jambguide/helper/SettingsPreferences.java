@@ -10,28 +10,17 @@ public class SettingsPreferences {
 
 
     public static final String SETTING_Quiz_PREF = "setting_quiz_pref";
-
-    private static final String SOUND_ONOFF = "sound_enable_disable";
-
-    private static final String SHOW_MUSIC_ONOFF = "showmusic_enable_disable";
-
-    private static final String LANG = "language_enable_disable";
-
-    private static final String VIBRATION = "vibrate_status";
-
     public static final String TOTAL_SCORE = "total_score";
-
     public static final String POINT = "no_of_point";
-
     public static final String LEVEL_COMPLETED = "level_completed";
-
     public static final String IS_LAST_LEVEL_COMPLETED = "is_last_level_completed";
-
     public static final String LAST_LEVEL_SCORE = "last_level_score";
-
     public static final String COUNT_QUESTION_COMPLETED = "count_question_completed";
-
     public static final String COUNT_RIGHT_ANSWARE_QUESTIONS = "count_right_answare_questions";
+    private static final String SOUND_ONOFF = "sound_enable_disable";
+    private static final String SHOW_MUSIC_ONOFF = "showmusic_enable_disable";
+    private static final String LANG = "language_enable_disable";
+    private static final String VIBRATION = "vibrate_status";
 
     public static void setVibration(Context context, Boolean result) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

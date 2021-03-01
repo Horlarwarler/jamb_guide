@@ -14,18 +14,19 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
-import androidx.annotation.ColorInt;
-import androidx.annotation.Dimension;
-import androidx.annotation.IntDef;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Dimension;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.offline.jambguide.R;
 
@@ -313,14 +314,6 @@ public class CircularProgressIndicator extends View {
         canvas.drawText(progressText, textX, textY, textPaint);
     }
 
-    public void setMaxProgress(double maxProgress) {
-        maxProgressValue = maxProgress;
-        if (maxProgressValue < progressValue) {
-            setCurrentProgress(maxProgress);
-        }
-        invalidate();
-    }
-
     public void setCurrentProgress(double currentProgress) {
         if (currentProgress > maxProgressValue) {
             maxProgressValue = currentProgress;
@@ -409,16 +402,6 @@ public class CircularProgressIndicator extends View {
         invalidate();
     }
 
-    public void setProgressColor(@ColorInt int color) {
-        progressPaint.setColor(color);
-        invalidate();
-    }
-
-    public void setProgressBackgroundColor(@ColorInt int color) {
-        progressBackgroundPaint.setColor(color);
-        invalidate();
-    }
-
     public void setProgressStrokeWidthDp(@Dimension int strokeWidth) {
         setProgressStrokeWidthPx(dp2px(strokeWidth));
     }
@@ -428,15 +411,6 @@ public class CircularProgressIndicator extends View {
         progressBackgroundPaint.setStrokeWidth(strokeWidth);
 
         invalidateEverything();
-    }
-
-    public void setTextColor(@ColorInt int color) {
-        textPaint.setColor(color);
-
-        Rect textRect = new Rect();
-        textPaint.getTextBounds(progressText, 0, progressText.length(), textRect);
-
-        invalidate(textRect);
     }
 
     public void setTextSizeSp(@Dimension int size) {
@@ -472,12 +446,6 @@ public class CircularProgressIndicator extends View {
         invalidate();
     }
 
-    public void setDotColor(@ColorInt int color) {
-        dotPaint.setColor(color);
-
-        invalidate();
-    }
-
     public void setDotWidthDp(@Dimension int width) {
         setDotWidthPx(dp2px(width));
     }
@@ -486,6 +454,11 @@ public class CircularProgressIndicator extends View {
         dotPaint.setStrokeWidth(width);
 
         invalidateEverything();
+    }
+
+    @NonNull
+    public ProgressTextAdapter getProgressTextAdapter() {
+        return progressTextAdapter;
     }
 
     public void setProgressTextAdapter(@Nullable ProgressTextAdapter progressTextAdapter) {
@@ -501,14 +474,14 @@ public class CircularProgressIndicator extends View {
         invalidateEverything();
     }
 
-    @NonNull
-    public ProgressTextAdapter getProgressTextAdapter() {
-        return progressTextAdapter;
-    }
-
     @ColorInt
     public int getProgressColor() {
         return progressPaint.getColor();
+    }
+
+    public void setProgressColor(@ColorInt int color) {
+        progressPaint.setColor(color);
+        invalidate();
     }
 
     @ColorInt
@@ -516,20 +489,32 @@ public class CircularProgressIndicator extends View {
         return progressBackgroundPaint.getColor();
     }
 
+    public void setProgressBackgroundColor(@ColorInt int color) {
+        progressBackgroundPaint.setColor(color);
+        invalidate();
+    }
+
     public float getProgressStrokeWidth() {
         return progressPaint.getStrokeWidth();
     }
-
 
     @ColorInt
     public int getTextColor() {
         return textPaint.getColor();
     }
 
+    public void setTextColor(@ColorInt int color) {
+        textPaint.setColor(color);
+
+        Rect textRect = new Rect();
+        textPaint.getTextBounds(progressText, 0, progressText.length(), textRect);
+
+        invalidate(textRect);
+    }
+
     public float getTextSize() {
         return textPaint.getTextSize();
     }
-
 
     public boolean isDotEnabled() {
         return shouldDrawDot;
@@ -540,10 +525,15 @@ public class CircularProgressIndicator extends View {
         return dotPaint.getColor();
     }
 
+    public void setDotColor(@ColorInt int color) {
+        dotPaint.setColor(color);
+
+        invalidate();
+    }
+
     public float getDotWidth() {
         return dotPaint.getStrokeWidth();
     }
-
 
     public double getProgress() {
         return progressValue;
@@ -551,6 +541,14 @@ public class CircularProgressIndicator extends View {
 
     public double getMaxProgress() {
         return maxProgressValue;
+    }
+
+    public void setMaxProgress(double maxProgress) {
+        maxProgressValue = maxProgress;
+        if (maxProgressValue < progressValue) {
+            setCurrentProgress(maxProgress);
+        }
+        invalidate();
     }
 
     public int getStartAngle() {

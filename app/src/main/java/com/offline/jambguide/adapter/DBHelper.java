@@ -20,20 +20,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
-    private String packageName;
-    private SQLiteDatabase db;
-    private static final String db_name = "quiz_main_sub_cat.db";
-    private static final String db_name_single_cat = "quiz_single_cat.db";
-
     //table names
     public static final String TBL_CATEGORY = "tbl_category";
     public static final String TBL_SUB_CATEGORY = "tbl_subCategory";
     public static final String TBL_QUESTION = "questions_list";
-    //table name
-    public static String TBL_LEVEL = "tbl_level";
-
-    //column names
-    public static String LEVEL_NO = "level_no";
     public static final String ID = "id";
     public static final String CATE_ID = "cate_id";
     public static final String SUB_CATE_ID = "sub_cate_id";
@@ -47,18 +37,24 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String OPTION_D = "option_d";
     public static final String RIGHT_ANSWER = "right_answer";
     public static final String LEVEL = "level";
-
-
-    private String db_path;
+    private static final String db_name = "quiz_main_sub_cat.db";
+    private static final String db_name_single_cat = "quiz_single_cat.db";
+    //table name
+    public static String TBL_LEVEL = "tbl_level";
+    //column names
+    public static String LEVEL_NO = "level_no";
     private static int db_version = 2;
     Context con;
+    private String packageName;
+    private SQLiteDatabase db;
+    private String db_path;
 
 
     public DBHelper(Context con) {
         super(con, db_name_single_cat, null, db_version);
         // TODO Auto-generated constructor stub
 
-        db_path= con.getDatabasePath(db_name_single_cat).getAbsolutePath();
+        db_path = con.getDatabasePath(db_name_single_cat).getAbsolutePath();
         //db_path = con.getDatabasePath(db_name).toString().replace(db_name, "");
         this.con = con;
     }
@@ -98,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void copyDB() throws IOException {
         InputStream inputFile = con.getAssets().open(db_name_single_cat);
-      //  String outFileName = db_path + db_name;
+        //  String outFileName = db_path + db_name;
         OutputStream outFile = new FileOutputStream(db_path);
         byte[] buffer = new byte[1024];
         int length;
@@ -181,12 +177,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return subCategories;
     }
 
-    public List<Quizplay> getQuestionGujSingleCat(int cate_id, int noOfQuestion, int level) {
+    public List<Quizplay> getQuestionGujSingleCat(int cate_id, int noOfQuestion) {
 
         List<Quizplay> quizplay = new ArrayList<Quizplay>();
         int total = noOfQuestion;
-        String sql = "select *  FROM " + TBL_QUESTION + " where (" + CATE_ID + "=" + cate_id + " and "
-                + LEVEL + "=" + level + ") ORDER BY RANDOM() LIMIT " + total;
+        String sql = "select *  FROM " + TBL_QUESTION + " where (" + CATE_ID + "=" + cate_id + ") ORDER BY RANDOM() LIMIT " + total;
         SQLiteDatabase db = this.getReadableDatabase();
         //SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/" + packageName + "/databases/" + DATABASE_NAME, null, 0);
         Cursor cursor = db.rawQuery(sql, null);
@@ -222,6 +217,7 @@ public class DBHelper extends SQLiteOpenHelper {
         quizplay = quizplay.subList(0, noOfQuestion);
         return quizplay;
     }
+
     public List<Quizplay> getQuestionGuj(int cate_id, int sub_cate_id, int noOfQuestion, int level) {
 
         List<Quizplay> quizplay = new ArrayList<Quizplay>();
@@ -269,12 +265,13 @@ public class DBHelper extends SQLiteOpenHelper {
     /*
      * insert level no
      */
-    public void insertIntoDBSingleCat(int cat_id,int level_no) {
+    public void insertIntoDBSingleCat(int cat_id, int level_no) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TBL_LEVEL + " (" + CATE_ID + "," + LEVEL_NO + ") VALUES('" + cat_id + "', '" + level_no + "');";
+        String query = "INSERT INTO " + TBL_LEVEL + " (" + CATE_ID + ") VALUES(" + cat_id + ")";
         db.execSQL(query);
 
     }
+
     public void insertIntoDB(int cat_id, int sub_cat_id, int level_no) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO " + TBL_LEVEL + " (" + CATE_ID + "," + SUB_CATE_ID + "," + LEVEL_NO + ") VALUES('" + cat_id + "', '" + sub_cat_id + "', '" + level_no + "');";
@@ -294,6 +291,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return exist;
 
     }
+
     public boolean isExist(int cat_id, int sub_cat_id) {
         db = this.getReadableDatabase();
         Cursor cur = db.rawQuery("SELECT * FROM " + TBL_LEVEL + " WHERE ( " + CATE_ID + " = " + cat_id + " AND " + SUB_CATE_ID + " = " + sub_cat_id + ")", null);
@@ -341,11 +339,11 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
-                if (c.moveToFirst()) {
-                    do {
-                        level = c.getString(c.getColumnIndex(QUESTION_SOLUTION));
-                    } while (c.moveToNext());
-                }
+        if (c.moveToFirst()) {
+            do {
+                level = c.getString(c.getColumnIndex(QUESTION_SOLUTION));
+            } while (c.moveToNext());
+        }
 //            c.moveToFirst();
 //                while (c.moveToNext()){
 //                    level = c.getString(c.getColumnIndex(QUESTION_SOLUTION));
@@ -362,6 +360,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("update " + TBL_LEVEL + " set level_no=" + level_no + " where (" + CATE_ID + "=" + cat_id + ")");
     }
+
     public void UpdateLevel(int cat_id, int sub_cat_id, int level_no) {
         db = this.getReadableDatabase();
 
